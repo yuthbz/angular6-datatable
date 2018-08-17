@@ -1,0 +1,98 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Angular 6 Reactive Form Validation ,DataTable</h2>
+
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+          />
+          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback help-block text-red">
+            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+          />
+          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+          />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          />
+          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="avatar">Avatar</label>
+          <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput>
+          <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+        </div>
+
+        <div class="form-group">
+          <label for="avatar">Avatar 2</label>
+          <input type="file" id="avatar2" (change)="onFileChange2($event)" #fileInput2>
+          <button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Register</button>
+          <button type="reset" class="btn btn-primary" (click)="onReset()">Reset</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <h3>User Lists</h3>
+  <table class="table">
+    <tr>
+      <td>#</td>
+      <td>First Name</td>
+      <td>Last Name</td>
+      <td>Email</td>
+      <td>Password</td>
+      <td>Action</td>
+    </tr>
+    <tr *ngFor="let user of users;">
+      <td>{{ user._id }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.password }}</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default btn btn-sm" (click)="onEdit(user._id)">
+            <i class="glyphicon glyphicon-pencil"></i>
+          </button>
+          <button type="button" class="btn btn-default btn btn-sm" (click)="onDelete(user._id)">
+            <i class="glyphicon glyphicon-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+</div>
